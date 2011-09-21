@@ -32,13 +32,21 @@ endfunction
 colorscheme slate
 "字体
 set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
+set history=300
 "行号,行号栏目宽度
 set nu
 set numberwidth=2
 "tab长度
 set tabstop=2
-"自动对齐
+set expandtab
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+"缩进
 set autoindent
+set smartindent
+"显示指令
+set showcmd
 "语法高亮
 syntax on
 "设置gbk字符会有编码问题，设置字符集
@@ -143,4 +151,18 @@ command GoTanKe cd E:\apache\htdocs\TanKe\
 :map ga :GitAdd
 :map gA :GitAdd <cfile>
 :map gc :GitCommit
+
+" 获取当前目录
+func! GetPWD()
+    return substitute(getcwd(), "", "", "g")
+endf
+
+"命令行于状态行
+set ch=1
+set stl=\ [File]\ %F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ \ [PWD]\ %r%{GetPWD()}%h\ %=\ [Line]%l/%L\ %=\[%P]
+set ls=2 " 始终显示状态行
+set wildmenu "命令行补全以增强模式运行
+
+"设定在任何模式下鼠标都可用
+set mouse=a
 
