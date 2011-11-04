@@ -1,0 +1,70 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"配色
+colorscheme slate
+"字体
+set guifont=Monaco:h12:cANSI
+"行号,行号栏目宽度
+set nu
+set numberwidth=4
+"tab长度
+set tabstop=4
+"自动对齐
+set autoindent
+"语法高亮
+syntax on
+"设置gbk字符会有编码问题，设置字符集
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+"行间距
+set linespace=4
+"<>调整缩进时的长度
+set shiftwidth=4
+"初始化窗口宽度高度
+set columns=200
+set lines=45
+"初始化窗口位置
+winpos 52 42
+
+"禁止自动换行
+set nowrap
+"在输入命令时列出匹配项目
+set wildmenu
+"显示光标位置
+set ruler
+"分割窗口保持相等宽高
+set equalalways
+
+"匹配括号规则，增加html的<>
+set matchpairs=(:),{:},[:],<:>
+"让退格，空格，上下箭头遇到行首位自动移到下一行(包括insert模式)
+set whichwrap=b,s,<,>,[,]
+
+

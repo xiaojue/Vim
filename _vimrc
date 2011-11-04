@@ -50,7 +50,8 @@ set showcmd
 "语法高亮
 syntax on
 "设置gbk字符会有编码问题，设置字符集
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+"set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,utf-16,big5,chinese
 "行间距
 set linespace=2
 "<>调整缩进时的长度
@@ -143,6 +144,7 @@ set statusline=%{GitBranch()}
 command Gogm cd E:\apache\htdocs\gm\ 
 command Golithe cd E:\apache\htdocs\lithe\ 
 command GoTanKe cd E:\apache\htdocs\TanKe\
+command GoShop cd E:\apache\htdocs\idmstatic\js\dshop\
 
 :map gd :GitDiff
 :map gD :GitDiff –cached
@@ -151,11 +153,19 @@ command GoTanKe cd E:\apache\htdocs\TanKe\
 :map ga :GitAdd
 :map gA :GitAdd <cfile>
 :map gc :GitCommit
+:map gh :GitPush
+:map gu :GitPull
+
+"快速打开目录树
+nnoremap <silent> <F5> :NERDTree<CR>
 
 " 获取当前目录
 func! GetPWD()
     return substitute(getcwd(), "", "", "g")
 endf
+
+"Markdown to HTML
+map md :!perl "D:\Program Files\Vim\vim73\Markdown\Markdown.pl" --html4tags % > %:r.html<cr>
 
 "命令行于状态行
 set ch=1
@@ -165,4 +175,8 @@ set wildmenu "命令行补全以增强模式运行
 
 "设定在任何模式下鼠标都可用
 set mouse=a
+"格式化js
+nnoremap <F6> :call g:Jsbeautify()<CR>
+"格式化html混合js的
+filetype plugin indent on 
 
