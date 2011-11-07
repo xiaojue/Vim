@@ -31,7 +31,8 @@ endfunction
 "配色
 colorscheme slate
 "字体
-set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
+set guifont=Microsoft_YaHei_Mono:h12:cANSI
+set guifontwide=Microsoft_YaHei_Mono:h12:cGB2312
 set history=300
 "行号,行号栏目宽度
 set nu
