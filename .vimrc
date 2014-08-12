@@ -4,23 +4,38 @@
 
 
 "行号,行号栏目宽度
+set noesckeys
 set nu
 set numberwidth=2
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
+autocmd BufNewFile,BufRead *.node set filetype=javascript
 "tab长度
-set tabstop=4
-set expandtab
-set smarttab
-set shiftwidth=4
-set softtabstop=4
+set noexpandtab
+"%retab!
+set list
+set lcs=tab:\|\ ,nbsp:%,trail:-
+highlight LeaderTab guifg=#666666
+match LeaderTab /^\t/
 "缩进
 set autoindent
 set smartindent
+set smarttab
+set linespace=2
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
 "显示指令
 set showcmd
 "语法高亮
+"syntax enable
+"set background=dark
+"colorscheme solarized
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd BufwritePre,FileWritePre * retab
+
 syntax on
-set linespace=2
 "禁止自动换行
 set nowrap
 "在输入命令时列出匹配项目
@@ -50,11 +65,12 @@ set ls=2 " 始终显示状态行
 set wildmenu "命令行补全以增强模式运行
 
 "格式化js
-nnoremap <F6> :call g:Jsbeautify()<CR>
+let mapleader=","
+nmap <silent> <leader>format :call g:Jsbeautify()<CR>
 "格式化html混合js的
 filetype plugin indent on
 "快速打开目录树
-nnoremap <silent> <F5> :NERDTree<CR>
+nmap <silent> <leader>tree :NERDTree<CR>
 
 let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function'
 "let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
